@@ -1,0 +1,141 @@
+{#
+    Fire1AxFormBundle — Bootstrap 5 modal form template.
+
+    Variables provided by AxFormService::getTemplateData():
+      - id            int|null    Entity ID (0 = new)
+      - form          FormView    Symfony form view
+      - color         string      Bootstrap contextual color (primary, danger, …)
+      - title         string      Modal header title (may contain HTML)
+      - erase         string      URL for delete button (empty = no button)
+      - infoTop       array|null  {title, content} shown above fields
+      - infoBot       array|null  {title, content} shown below fields
+      - button_label  string|null Override submit button label
+      - button_close  string|null Override dismiss button label
+      - modal_size    string|null CSS class appended to <form> (SizeWide / SizeExtraWide)
+      - ax_next_submit bool     Enable multi-step "Next" button instead of "Submit"
+#}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% if form.picture is defined %}
+    {% form_theme form.picture '@Fire1AxForm/forms/picture.twig' %}
+{% endif %}
+
+{% set form_submit_id = form.vars.id ~ '_submit_ax_form_button' %}
+{% set js_double_submit = "document.getElementById('" ~ form_submit_id ~ "').disabled = true;" %}
+
+{{ form_start(form, {attr: {onsubmit: js_double_submit|raw, class: modal_size}}) }}
+
+<div class="modal-header {{ color }}">
+    <h4 class="modal-title" id="form-modalTitle-{{ id }}">{{ title|raw }}</h4>
+    <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">
+        <svg class="feather size24">
+            <use href="/assets/icons/feather.svg#x"></use>
+        </svg>
+    </button>
+</div>
+
+<div class="modal-body text-left">
+
+    {# Info box — top #}
+    {% if infoTop is not empty %}
+        <div class="mb-2">
+            {% if infoTop.content is empty %}
+                <div class="alert alert-secondary" role="alert">
+                    {{ infoTop.title|raw }}
+                </div>
+            {% else %}
+                <p>
+                    <a class="btn btn-sm btn-block btn-outline-{{ color }} w-100"
+                       data-bs-toggle="collapse"
+                       href="#collapse-ax-form-top-{{ id }}"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapse-ax-form-top-{{ id }}">
+                        {{ infoTop.title|raw }}
+                    </a>
+                </p>
+                <div class="collapse" id="collapse-ax-form-top-{{ id }}">
+                    <div class="card card-body">
+                        {{ infoTop.content|raw }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# Validation error summary #}
+    {% if not form.vars.valid %}
+        <div class="alert alert-danger small">
+            Sorry, the form is not valid!
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
+
+    <div id="ax-form-contents">
+        {{ form_widget(form) }}
+    </div>
+
+    {# Info box — bottom #}
+    {% if infoBot is not empty %}
+        <div class="mb-2">
+            {% if infoBot.content is empty %}
+                <div class="alert alert-secondary" role="alert">
+                    {{ infoBot.title|raw }}
+                </div>
+            {% else %}
+                <p>
+                    <a class="btn btn-sm btn-block btn-outline-{{ color }} w-100"
+                       data-bs-toggle="collapse"
+                       href="#collapse-ax-form-bot-{{ id }}"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapse-ax-form-bot-{{ id }}">
+                        {{ infoBot.title|raw }}
+                    </a>
+                </p>
+                <div class="collapse" id="collapse-ax-form-bot-{{ id }}">
+                    <div class="card card-body">
+                        {{ infoBot.content|raw }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+<div class="modal-footer {{ color }}">
+
+    {# Delete button (only for existing entities) #}
+    {% if id != 0 and erase is not empty %}
+        <a href="{{ erase }}"
+           id="ax-form-erase-button"
+           class="btn btn-danger ms-0 me-auto confirm-require">
+            Erase
+        </a>
+    {% endif %}
+
+    <button type="button" class="btn btn-link text-secondary" data-bs-dismiss="modal">
+        {{ button_close|default('Dismiss') }}
+    </button>
+
+    {# Multi-step: show "Next" button until the final step #}
+    {% if ax_next_submit %}
+        <a href="#"
+           id="ax-form-ax-submit"
+           class="btn btn-{{ color|default('primary') }}"
+           data-clicks="{{ ax_next_submit }}">
+            {{ next_label|default('Next') }}
+        </a>
+    {% endif %}
+
+    <button type="submit"
+            id="{{ form_submit_id }}"
+            {% if ax_next_submit %}style="display:none"{% endif %}
+            class="btn btn-{{ color|default('primary') }} mr-0">
+        {{ button_label|default('Submit') }}
+    </button>
+
+</div>
+
+{{ form_end(form) }}

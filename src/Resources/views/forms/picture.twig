@@ -1,0 +1,32 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+
+    <div class="form-group">
+        {{ form_label(form) }}
+        <div class="row">
+            {% if image_url is defined %}
+                <div class="col-2 pr-0">
+                    <div class="text-center border border-radius-30 "
+                         style="width: 100%;height: calc(1.5em + .75rem + 2px); line-height: calc(1.5em + .75rem - 2px)">
+                        {% if image_url is not null %}
+                            <img src="{{ image_url }}" style="max-width: 64px;height: 24px;width: auto"
+                                 data-toggle="popover-img-hover"
+                                 data-img="{{ image_url }}"/>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="{{- image_url is defined ?'col-10':'col-12' -}}">
+                {{- form_widget(form) -}}
+            </div>
+        </div>
+        {{- form_help(form) -}}
+    </div>
+
+{% endblock %}

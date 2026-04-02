@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Fire1\AxFormBundle\Service\AxFormService:
+        public: true
+
+    Fire1\AxFormBundle\Service\AxStepsService:
+        public: true
+
+    Fire1\AxFormBundle\Twig\AxFormTwigExtension:
+        tags:
+            - { name: twig.extension }
