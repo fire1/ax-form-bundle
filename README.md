@@ -1,4 +1,4 @@
-# AxFormBundle
+# The Symfony AxFormBundle
 
 A standalone, redistributable Symfony bundle for building AJAX-powered modals and multi-step forms with ease.
 
