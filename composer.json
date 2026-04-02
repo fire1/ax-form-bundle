@@ -2,11 +2,11 @@
     "name": "fire1/ax-form-bundle",
     "description": "Standalone Symfony bundle for Ax-driven multi-step forms",
     "type": "symfony-bundle",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Fire1",
-            "email": "info@fire1.com"
+            "name": "Angel Zaprianov",
+            "email": "fire1@abv.bg"
         }
     ],
     "require": {

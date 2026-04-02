@@ -59,7 +59,3 @@ public function new(): Response
         });
 }
 ```
-
-## License
-
-Proprietary - Fire1
