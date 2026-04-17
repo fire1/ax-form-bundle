@@ -1,6 +1,6 @@
 # The Symfony AxFormBundle
 
-A standalone, redistributable Symfony bundle for building AJAX-powered modals and multi-step forms with ease.
+AxFormBundle  makes it easy to open your Symfony forms in Bootstrap 5.3 modals using AJAX. It handles all the "boring" parts—like page reloads and error messages—so you don't have to write custom JavaScript. It’s the simplest way to turn your Symfony forms into fast pop-ups with almost no extra code.
 
 ## Features
 
