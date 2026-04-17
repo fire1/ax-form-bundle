@@ -1,23 +1,23 @@
 {
-    "name": "fire1/ax-form-bundle",
-    "description": "Standalone Symfony bundle for Ax-driven multi-step forms",
-    "version": "1.2.0",
-    "type": "symfony-bundle",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Angel Zaprianov",
-            "email": "fire1@abv.bg"
-        }
-    ],
-    "require": {
-        "php": ">=8.2",
-        "symfony/framework-bundle": "^5.4|^6.0|^7.0",
-        "symfony/twig-bundle": "^5.4|^6.0|^7.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Fire1\\AxFormBundle\\": "src/"
-        }
+  "name": "fire1/ax-form-bundle",
+  "description": "Symfony bundle for building AJAX-powered Bootstrap 5.3/jQuery modals forms with ease.",
+  "version": "1.2.0",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Angel Zaprianov",
+      "email": "fire1@abv.bg"
     }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+    "symfony/twig-bundle": "^5.4|^6.0|^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fire1\\AxFormBundle\\": "src/"
+    }
+  }
 }
