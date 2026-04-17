@@ -31,8 +31,16 @@ use Twig\TwigFunction;
  * {{ ax_form_modal() }}
  * ```
  */
+
+
 class AxFormTwigExtension extends AbstractExtension
 {
+    public const FORM_MODAL_ID = 'ax-form-modal';
+    public const FORM_CONTENT_ID = 'ax-form-modal-content';
+
+    public const DEFAULT_FORM_MODAL_CLASS = 'modal animate__animated animate__fadeInUp';
+    public const DEFAULT_FORM_CONTENT_CLASS = 'modal-content';
+
     public function getFunctions(): array
     {
         return [

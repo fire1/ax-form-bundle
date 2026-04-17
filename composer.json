@@ -1,6 +1,7 @@
 {
     "name": "fire1/ax-form-bundle",
     "description": "Standalone Symfony bundle for Ax-driven multi-step forms",
+    "version": "1.2.0",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [

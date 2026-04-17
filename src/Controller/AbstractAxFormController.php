@@ -69,6 +69,7 @@ abstract class AbstractAxFormController extends AbstractController
         return array_merge(parent::getSubscribedServices(), [
             'fire1_ax_form' => AxFormService::class,
             'fire1_ax_form.steps' => AxStepsService::class,
+            \Doctrine\ORM\EntityManagerInterface::class,
         ]);
     }
 
@@ -195,13 +196,13 @@ abstract class AbstractAxFormController extends AbstractController
             return false;
         }
 
-        /** @var EntityManagerInterface */
-        $em = $this->getDoctrine()->getManager();
+        /** @var EntityManagerInterface $em */
+        $em = $this->container->get(\Doctrine\ORM\EntityManagerInterface::class);
         $em->remove($em->getReference($entity, $request->query->get($queryKey)));
         $em->flush();
 
         if (null === $redirect) {
-            if ($request->isXmlHttpRequest()) {
+            if ('XMLHttpRequest' === $request->headers->get('X-Requested-With')) {
                 return new JsonResponse('ok');
             }
 
@@ -264,9 +265,9 @@ abstract class AbstractAxFormController extends AbstractController
         $request = $this->container->get('request_stack')->getCurrentRequest();
         $params = array_merge(
             $request->attributes->get('_route_params', []),
-            [$this->allowEraseAxFormRequest => $request->get('id')],
+            [$this->allowEraseAxFormRequest => $request->query->get('id') ?? $request->request->get('id')],
         );
 
-        return $this->generateUrl($request->get('_route'), $params);
+        return $this->generateUrl($request->attributes->get('_route'), $params);
     }
 }

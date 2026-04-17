@@ -50,7 +50,7 @@ trait FilesystemCacheTrait
      * @param string|null $namespace
      * @return void
      */
-    protected function initCache(int $lifetime = null, string $namespace = null)
+    protected function initCache(?int $lifetime = null, ?string $namespace = null)
     {
         $namespace = $namespace ?? crc32($this->getClassNamespace());
         $this->__cache = new FilesystemAdapter($namespace, $lifetime ?? $this->__cacheLifetime, $this->__cacheDirectory);
@@ -74,7 +74,7 @@ trait FilesystemCacheTrait
      * @return CacheItem
      * @throws InvalidArgumentException
      */
-    public function traitCacheItem(string $name, int $lifetime = null, string $prefix = null, string $namespace = null): CacheItem
+    public function traitCacheItem(string $name, ?int $lifetime = null, ?string $prefix = null, ?string $namespace = null): CacheItem
     {
         if(!$this->__cache instanceof FilesystemAdapter) $this->initCache($lifetime, $namespace);
         return $this->__cache->getItem($prefix . '-' . $name . '-' . $_SERVER['APP_ENV']);

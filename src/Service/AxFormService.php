@@ -156,7 +156,9 @@ class AxFormService
         $this->keyword = empty($keyword) ? self::$titleItem : $keyword;
         $this->erase = $eraseUrl;
         $this->color = $headColor;
-        $this->id = (int) $this->getRequest()->get('id', 0);
+        
+        $request = $this->getRequest();
+        $this->id = (int) ($request->query->get('id') ?? $request->request->get('id', 0));
 
         if (is_string($entityClass)) {
             $this->entity = (0 !== $this->id)
@@ -470,7 +472,7 @@ class AxFormService
 
         if ($this->isValidationEnabled) {
             $request = $this->getRequest();
-            if ($request->isXmlHttpRequest() && $request->headers->has('X-Form-validation')) {
+            if ('XMLHttpRequest' === $request->headers->get('X-Requested-With') && $request->headers->has('X-Form-validation')) {
                 if (!$this->form->isValid()) {
                     return $this->render(null, [], 207);
                 }
@@ -507,10 +509,10 @@ class AxFormService
         $request = $this->getRequest();
         $params = array_merge(
             $request->attributes->get('_route_params', []),
-            [self::EraseQuery => $id ?? $request->get('id')],
+            [self::EraseQuery => $id ?? ($request->query->get('id') ?? $request->request->get('id'))],
         );
 
-        return $this->router->generate($request->get('_route'), $params);
+        return $this->router->generate($request->attributes->get('_route'), $params);
     }
 
     // =========================================================================
@@ -576,7 +578,7 @@ class AxFormService
     {
         $request = $this->getRequest();
 
-        return $request->isXmlHttpRequest() || $request->isMethod('POST');
+        return 'XMLHttpRequest' === $request->headers->get('X-Requested-With') || $request->isMethod('POST');
     }
 
     public function getReferer(): string

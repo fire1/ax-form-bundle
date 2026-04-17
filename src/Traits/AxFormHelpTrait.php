@@ -57,7 +57,7 @@ trait AxFormHelpTrait
      */
     public static function isAxOrPost(Request $request): bool
     {
-        return ($request->isXmlHttpRequest() || $request->isMethod("POST"));
+        return ('XMLHttpRequest' === $request->headers->get('X-Requested-With') || $request->isMethod("POST"));
     }
 
     /**

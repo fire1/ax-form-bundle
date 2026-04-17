@@ -6,6 +6,8 @@ Follow these steps to integrate `AxFormBundle` into your Symfony project.
 
 - PHP 8.2 or higher
 - Symfony 5.4, 6.x, or 7.x
+- Doctrine ORM & Doctrine Bundle
+- Symfony Form Component
 - Twig Bundle
 - Webpack Encore (for frontend assets)
 

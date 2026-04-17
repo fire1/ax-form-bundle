@@ -4,12 +4,20 @@ A standalone, redistributable Symfony bundle for building AJAX-powered modals an
 
 ## Features
 
-- **Fluent AxFormService**: A clean API for handling entity creation and modification within modals.
+- **Fluent AxFormService**: A clean API for handling entity creation and modification within modals (requires **Doctrine** and **Symfony Form**).
 - **AxStepsService**: Session-based orchestrator for complex multi-step form workflows.
 - **AbstractAxFormController**: Base controller with built-in helpers for modal initialization and entity deletion.
 - **Twig Integration**: Custom functions for rendering modal triggers and the required container structure.
 - **Bootstrap 5 Support**: Out-of-the-box templates compatible with Bootstrap 5.
 - **Portable Assets**: Includes a standalone npm package `@fire1/ax-form` with Vue 3 components.
+
+## Requirements
+
+- **PHP 8.2** or higher
+- **Symfony 5.4, 6.x, or 7.x**
+- **Doctrine ORM** (for `AxFormService` entity persistence)
+- **Symfony Form Component** (for form handling)
+- **Twig Bundle** (for rendering)
 
 ## Documentation
 
