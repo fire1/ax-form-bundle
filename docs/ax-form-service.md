@@ -13,7 +13,12 @@ The `AxFormService` is the heart of the bundle. It provides a fluent API to hand
 
 ### `form(mixed $entity, string $keyword = '', string $eraseUrl = '', string $headColor = 'primary')`
 
-Initializes the service. If `$entity` is a class name, it tries to load the entity from the DB using the `id` from the request.
+Initializes the service. If `$entity` is a class name, it tries to load the entity from the database. It automatically resolves the `id` from the current request with the following priority:
+1. **Route Attributes** (e.g., `{id}` in the URL pattern)
+2. **Query Parameters** (GET)
+3. **Request Body** (POST)
+
+If no ID is found, it initializes a new instance of the class.
 
 ### `create(mixed $formClass, array $formOptions = [])`
 

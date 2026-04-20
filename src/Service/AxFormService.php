@@ -143,6 +143,9 @@ class AxFormService
      * current request, the entity is loaded from the database; otherwise a new
      * instance is created.
      *
+     * Resolves ID from the request using the following priority:
+     *  1. URL Path parameters, 2. Query string (GET), 3. Request body (POST).
+     *
      * Typically called via {@see AbstractAxFormController::formPage()} or
      * {@see AbstractAxFormController::formEdit()}.
      *
@@ -156,9 +159,10 @@ class AxFormService
         $this->keyword = empty($keyword) ? self::$titleItem : $keyword;
         $this->erase = $eraseUrl;
         $this->color = $headColor;
-        
+
         $request = $this->getRequest();
-        $this->id = (int) ($request->query->get('id') ?? $request->request->get('id', 0));
+        // Default to 0 if no id is found in the request
+        $this->id = (int) ($request->attributes->get('id') ?? $request->query->get('id') ?? $request->request->get('id', 0));
 
         if (is_string($entityClass)) {
             $this->entity = (0 !== $this->id)
