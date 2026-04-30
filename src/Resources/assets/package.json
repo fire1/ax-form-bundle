@@ -1,6 +1,6 @@
 {
     "name": "@fire1/ax-form",
-    "version": "1.0.0",
+    "version": "1.2.2",
     "main": "ax-form.js",
     "style": "ax-form.scss"
 }

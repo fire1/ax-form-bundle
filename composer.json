@@ -1,7 +1,8 @@
 {
   "name": "fire1/ax-form-bundle",
   "description": "Symfony bundle for building AJAX-powered Bootstrap 5.3/jQuery modals forms with ease.",
-  "version": "1.2.1",  "type": "symfony-bundle",
+  "version": "1.2.2",
+  "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
     {
