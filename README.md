@@ -29,6 +29,7 @@ Full documentation is available in the [docs](docs/index.md) folder:
 4. [Controller Integration](docs/controller-integration.md)
 5. [Frontend Assets](docs/frontend-assets.md)
 6. [Twig Helpers](docs/twig-helpers.md)
+7. [Agents / brandpier notes](docs/agents-axform-notes.md) — **read in brandpier** (route `{id}`, flashes, erase URL, DTO pitfalls)
 
 ## Quick Installation
 

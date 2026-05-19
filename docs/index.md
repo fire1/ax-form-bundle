@@ -10,6 +10,7 @@ Welcome to the `AxFormBundle` documentation. This bundle is designed to simplify
 4. [Controller Integration](controller-integration.md) - Helper methods for your controllers.
 5. [Frontend Assets](frontend-assets.md) - JavaScript, Vue components, and plugins.
 6. [Twig Helpers](twig-helpers.md) - Useful Twig functions.
+7. [Agents / brandpier notes](agents-axform-notes.md) - Flash messages, callbacks, `empty_data`; **read before changing AxForm usage**.
 
 ## Key Features
 

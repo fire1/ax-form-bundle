@@ -14,11 +14,13 @@ The `AxFormService` is the heart of the bundle. It provides a fluent API to hand
 ### `form(mixed $entity, string $keyword = '', string $eraseUrl = '', string $headColor = 'primary')`
 
 Initializes the service. If `$entity` is a class name, it tries to load the entity from the database. It automatically resolves the `id` from the current request with the following priority:
-1. **Route Attributes** (e.g., `{id}` in the URL pattern)
-2. **Query Parameters** (GET)
-3. **Request Body** (POST)
+1. **Route attributes** — key **`id` only** (the route placeholder must be named `{id}`, not `{from}` or `{conn}`)
+2. **Query parameters** (GET) — `?id=…`
+3. **Request body** (POST) — field `id`
 
 If no ID is found, it initializes a new instance of the class.
+
+**brandpier:** Any controller action opened via `macros.ax_form()` / `data-ax-form` should expose `{id}` in the path and generate URLs with `{ id: … }`. See [`agents-axform-notes.md`](agents-axform-notes.md) for pitfalls and bulk-copy examples.
 
 ### `create(mixed $formClass, array $formOptions = [])`
 

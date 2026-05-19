@@ -8,6 +8,7 @@ use Fire1\AxFormBundle\Service\AxStepsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -69,7 +70,7 @@ abstract class AbstractAxFormController extends AbstractController
         return array_merge(parent::getSubscribedServices(), [
             'fire1_ax_form' => AxFormService::class,
             'fire1_ax_form.steps' => AxStepsService::class,
-            \Doctrine\ORM\EntityManagerInterface::class,
+            EntityManagerInterface::class,
         ]);
     }
 
@@ -197,7 +198,7 @@ abstract class AbstractAxFormController extends AbstractController
         }
 
         /** @var EntityManagerInterface $em */
-        $em = $this->container->get(\Doctrine\ORM\EntityManagerInterface::class);
+        $em = $this->container->get(EntityManagerInterface::class);
         $em->remove($em->getReference($entity, $request->query->get($queryKey)));
         $em->flush();
 
@@ -224,6 +225,7 @@ abstract class AbstractAxFormController extends AbstractController
     protected function redirectByReferer(?string $default = null): RedirectResponse
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();
+
         //
         // Hope home route is existing, if is not then you can redirect from there to your index when fallback occurs.
         return $this->redirect($request->headers->get('referer') ?? $default ?? $this->generateUrl('home'));
@@ -261,12 +263,15 @@ abstract class AbstractAxFormController extends AbstractController
         if (!empty($eraseUrl) || !$this->allowEraseAxFormRequest) {
             return $eraseUrl;
         }
-
+        /** @var Request $request */
         $request = $this->container->get('request_stack')->getCurrentRequest();
+
         $params = array_merge(
             $request->attributes->get('_route_params', []),
-            [$this->allowEraseAxFormRequest => $request->query->get('id') ?? $request->request->get('id')],
+            [$this->allowEraseAxFormRequest =>
+            $request->attributes->get('id') ?? $request->query->get('id') ?? $request->request->get('id')],
         );
+
 
         return $this->generateUrl($request->attributes->get('_route'), $params);
     }

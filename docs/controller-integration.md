@@ -8,6 +8,8 @@ To use the bundle efficiently, your controllers should extend `Fire1\AxFormBundl
 
 Initializes the `AxFormService` and forces the response to be rendered as a modal, even if the request is not AJAX. This is the most common entry point for "Form Pages".
 
+**Routing convention (brandpier):** The AxForm route must include a path segment `{id}`. The controller argument can be typed-hinted as an entity (e.g. `ClientConnEntity $conn`); Symfony resolves it from `{id}`. Twig triggers must use `path('route.name', { id: … })` — never rename the route key to match the PHP variable name.
+
 ### `formEdit(mixed $entity, string $keyword = ...)`
 
 Initializes the `AxFormService` **only** if the request is AJAX or POST. 
